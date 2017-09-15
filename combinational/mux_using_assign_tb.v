@@ -24,7 +24,7 @@ module test;
   mux_using_assign c1 (din_0,din_1,sel,value);
 
   initial
-     $monitor("At time %t, d0 = %0d d1 = %0d sel %0d value = %h (%0d)",
-              $time, din_0, din_1, sel, value, value);
+     $monitor("At time %t, sel %0d d1 = %0d d0 = %0d  OUTPUT = %h (%0d)",
+              $time, sel, din_1, din_0, value, value);
 endmodule // test
 
