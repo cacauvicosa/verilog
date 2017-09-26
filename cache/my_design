@@ -1,0 +1,169 @@
+#! /usr/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x26d5930 .scope module, "counter" "counter" 2 6;
+ .timescale 0 0;
+v0x269a080_0 .var "End", 0 0;
+v0x26e6a30_0 .net "clk", 0 0, C4<z>; 0 drivers
+v0x26e6ad0_0 .var "out", 2 0;
+v0x26e6b70_0 .net "reset", 0 0, C4<z>; 0 drivers
+E_0x269bbc0 .event edge, v0x26e6b70_0;
+E_0x26d5ea0 .event posedge, v0x26e6a30_0;
+S_0x26d5a20 .scope module, "datacache" "datacache" 3 2;
+ .timescale 0 0;
+v0x26e6c90_0 .net "blk", 2 0, C4<zzz>; 0 drivers
+v0x26e6d50_0 .net "clk", 0 0, C4<z>; 0 drivers
+v0x26e6df0_0 .net "din", 7 0, C4<zzzzzzzz>; 0 drivers
+v0x26e6e90_0 .var "dout", 7 0;
+v0x26e6f40_0 .net "line", 1 0, C4<zz>; 0 drivers
+v0x26e6fe0 .array "memory", 31 0, 7 0;
+v0x26e70a0_0 .net "wr", 0 0, C4<z>; 0 drivers
+E_0x26e6c20 .event posedge, v0x26e6d50_0;
+S_0x26d2070 .scope module, "ram" "ram" 4 2;
+ .timescale 0 0;
+v0x26e7180_0 .net "addr", 10 0, C4<zzzzzzzzzzz>; 0 drivers
+v0x26e7240_0 .net "clk", 0 0, C4<z>; 0 drivers
+v0x26e72e0_0 .net "din", 7 0, C4<zzzzzzzz>; 0 drivers
+v0x26e7380_0 .var "dout", 7 0;
+v0x26e7430_0 .var "k", 0 0;
+v0x26e74d0 .array "memory", 2047 0, 7 0;
+v0x26e7590_0 .net "wr", 0 0, C4<z>; 0 drivers
+E_0x26e6f10 .event posedge, v0x26e7240_0;
+S_0x26d2160 .scope module, "tag" "tag" 5 2;
+ .timescale 0 0;
+v0x26e7670_0 .net "clk", 0 0, C4<z>; 0 drivers
+v0x26e7730_0 .net "din", 5 0, C4<zzzzzz>; 0 drivers
+v0x26e77d0_0 .var "dout", 5 0;
+v0x26e7870_0 .net "line", 1 0, C4<zz>; 0 drivers
+v0x26e7920 .array "memory", 31 0, 5 0;
+v0x26e79a0_0 .net "wr", 0 0, C4<z>; 0 drivers
+E_0x26e7400 .event posedge, v0x26e7670_0;
+    .scope S_0x26d5930;
+T_0 ;
+    %wait E_0x26d5ea0;
+    %load/v 8, v0x26e6ad0_0, 3;
+    %mov 11, 0, 29;
+    %addi 8, 1, 32;
+    %ix/load 0, 3, 0;
+    %assign/v0 v0x26e6ad0_0, 0, 8;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_0x26d5930;
+T_1 ;
+    %wait E_0x26d5ea0;
+    %load/v 8, v0x26e6ad0_0, 3;
+    %cmpi/u 8, 7, 3;
+    %jmp/0xz  T_1.0, 4;
+    %cassign/v v0x269a080_0, 1, 1;
+    %jmp T_1.1;
+T_1.0 ;
+    %cassign/v v0x269a080_0, 0, 1;
+T_1.1 ;
+    %jmp T_1;
+    .thread T_1;
+    .scope S_0x26d5930;
+T_2 ;
+    %wait E_0x269bbc0;
+    %load/v 8, v0x26e6b70_0, 1;
+    %jmp/0xz  T_2.0, 8;
+    %cassign/v v0x26e6ad0_0, 0, 3;
+    %jmp T_2.1;
+T_2.0 ;
+    %deassign v0x26e6ad0_0, 0, 3;
+T_2.1 ;
+    %jmp T_2;
+    .thread T_2, $push;
+    .scope S_0x26d5a20;
+T_3 ;
+    %wait E_0x26e6c20;
+    %load/v 16, v0x26e6c90_0, 3;
+    %load/v 19, v0x26e6f40_0, 2;
+    %ix/get 3, 16, 5;
+    %load/av 8, v0x26e6fe0, 8;
+    %ix/load 0, 8, 0;
+    %assign/v0 v0x26e6e90_0, 0, 8;
+    %load/v 8, v0x26e70a0_0, 1;
+    %jmp/0xz  T_3.0, 8;
+    %load/v 8, v0x26e6df0_0, 8;
+    %load/v 16, v0x26e6c90_0, 3;
+    %load/v 19, v0x26e6f40_0, 2;
+    %ix/get 3, 16, 5;
+    %jmp/1 t_0, 4;
+    %ix/load 0, 8, 0; word width
+    %ix/load 1, 0, 0; part off
+    %assign/av v0x26e6fe0, 0, 8;
+t_0 ;
+T_3.0 ;
+    %jmp T_3;
+    .thread T_3;
+    .scope S_0x26d2070;
+T_4 ;
+    %wait E_0x26e6f10;
+    %ix/getv 3, v0x26e7180_0;
+    %load/av 8, v0x26e74d0, 8;
+    %ix/load 0, 8, 0;
+    %assign/v0 v0x26e7380_0, 0, 8;
+    %load/v 8, v0x26e7590_0, 1;
+    %jmp/0xz  T_4.0, 8;
+    %load/v 8, v0x26e72e0_0, 8;
+    %ix/getv 3, v0x26e7180_0;
+    %jmp/1 t_1, 4;
+    %ix/load 0, 8, 0; word width
+    %ix/load 1, 0, 0; part off
+    %assign/av v0x26e74d0, 0, 8;
+t_1 ;
+T_4.0 ;
+    %jmp T_4;
+    .thread T_4;
+    .scope S_0x26d2070;
+T_5 ;
+    %set/v v0x26e7430_0, 0, 1;
+T_5.0 ;
+    %load/v 8, v0x26e7430_0, 1;
+    %mov 9, 0, 7;
+   %cmpi/u 8, 255, 8;
+    %jmp/0xz T_5.1, 5;
+    %load/v 8, v0x26e7430_0, 1;
+    %mov 9, 0, 7;
+    %ix/getv 3, v0x26e7430_0;
+   %jmp/1 t_2, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x26e74d0, 8, 8;
+t_2 ;
+    %ix/load 0, 1, 0;
+    %load/vp0 8, v0x26e7430_0, 1;
+    %set/v v0x26e7430_0, 8, 1;
+    %jmp T_5.0;
+T_5.1 ;
+    %end;
+    .thread T_5;
+    .scope S_0x26d2160;
+T_6 ;
+    %wait E_0x26e7400;
+    %ix/getv 3, v0x26e7870_0;
+    %load/av 8, v0x26e7920, 6;
+    %ix/load 0, 6, 0;
+    %assign/v0 v0x26e77d0_0, 0, 8;
+    %load/v 8, v0x26e79a0_0, 1;
+    %jmp/0xz  T_6.0, 8;
+    %load/v 8, v0x26e7730_0, 6;
+    %ix/getv 3, v0x26e7870_0;
+    %jmp/1 t_3, 4;
+    %ix/load 0, 6, 0; word width
+    %ix/load 1, 0, 0; part off
+    %assign/av v0x26e7920, 0, 8;
+t_3 ;
+T_6.0 ;
+    %jmp T_6;
+    .thread T_6;
+# The file index is used to find the file name in the following table.
+:file_names 6;
+    "N/A";
+    "<interactive>";
+    "counter.v";
+    "datacache.v";
+    "ram.v";
+    "tag.v";
