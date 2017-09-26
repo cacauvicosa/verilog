@@ -9,13 +9,19 @@ output [7:0] dout;
 reg [7:0] memory[0:2047];
 reg [7:0] dout;
 
+
 always @(posedge clk )
-  begin
-    dout <= memory[addr];
+  begin  
     if (wr)
       memory[addr] <= din; 
   end
 
+always @ (addr)
+  begin 
+  dout = memory[addr];
+  end
+
+// initialize for test....
 reg k;
 
 initial

@@ -11,11 +11,14 @@ reg [5:0] dout;
 
 always @(posedge clk )
   begin
-    dout <= memory[line]; 
     if (wr)
       memory[line] <= din; 
   end
 
+always @ (line)
+  begin 
+  dout = memory[line];
+  end
 
 
 endmodule

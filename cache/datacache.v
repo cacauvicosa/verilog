@@ -12,12 +12,14 @@ reg [7:0] dout;
 
 always @(posedge clk )
   begin
-    dout <= memory[{line,blk}]; // {} concatenation
     if (wr)
       memory[{line,blk}] <= din; 
   end
 
-
+always @ (line or blk)
+  begin 
+  dout = memory[{line,blk}]; // {} concatenation
+  end
 
 endmodule
 
