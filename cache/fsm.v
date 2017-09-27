@@ -2,35 +2,31 @@ module fsm(
   input wire clk, reset, c, v, END, 
   output reg Twr, Dwr, Rwr, Cnt, Mux);
 
-reg [1:0] state, next_state;
+reg [1:0] state;
 
 parameter ReadTag = 2'b00, ReadData = 2'b01, ReadBlk = 2'b10, UpdateTag = 2'b11;
 
 /* State register (synchronous reset) */
-always @(posedge clk) begin
-  if (reset) begin
+always @(posedge clk or posedge reset) 
+begin
+  if (reset) 
     state <= ReadTag;
-  end
-  else begin
-    state <= next_state;
-  end
-end
+  else 
+    case (state)
+    ReadTag: 
+      if (c && v)  state <= ReadData;
+      else state <= ReadBlk;
 
-/* Next state logic */
-always @(*) begin
-  case (state)
-    ReadTag: begin
-      next_state = (c&v) ? ReadData : ReadBlk;
-    end
-    ReadData: begin
-      next_state = ReadTag;
-    end
-    ReadBlk: begin
-      next_state = (END) ? UpdateTag : ReadBlk;
-    end
-    UpdateTag: begin
-      next_state = ReadTag;
-    end
+    ReadData: 
+      state <= ReadTag;
+    
+    ReadBlk: 
+      if (END) state <= UpdateTag;
+      else     state <= ReadBlk;
+    
+    UpdateTag: 
+      state <= ReadTag;
+    
   endcase
 end
 

@@ -16,7 +16,7 @@ always @(posedge clk )
       memory[line] <= 1; 
   end
 
-always @ (line)
+always @ (*)
   begin 
   dout = memory[line];
   end

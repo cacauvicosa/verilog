@@ -7,8 +7,6 @@ input [10:0] address;
 output [7:0] dout;
 input [7:0] din;
 
-output [5:0] debug;
-reg [5:0] debug;
 
 reg [7:0] dout;
 
@@ -33,8 +31,6 @@ always @(*) begin
  dout = Cache2out;
 end
 
-
-
 fsm  FSM(
   .clk (clk), 
   .reset (reset),
@@ -51,9 +47,9 @@ valid V( .clk (clk), .line (line), .reset (reset),
          .wr (Twr), .dout(v) );
 
 Mtag T( .clk (clk), .line (line),  .din(tag), 
-       .wr(Twr), .dout(Tout), .reset(reset) );
+       .wr(Twr), .dout(Tout) );
 
-comparator comp(.out(c), .tag(tag), .tag_in(Tout));
+comparator comp(.out(c), .clk(clk), .tag(tag), .tag_in(Tout));
 
 datacache dcache( .clk (clk), .line (line), .blk(Muxout),
                   .din(Ram2Cache), .wr(Dwr), .dout(Cache2out) );

@@ -16,9 +16,9 @@ always @(posedge clk )
       memory[{line,blk}] <= din; 
   end
 
-always @ (line or blk)
+always @ (*)
   begin 
-  dout = memory[{line,blk}]; // {} concatenation
+  dout <= memory[{line,blk}]; // {} concatenation
   end
 
 endmodule
