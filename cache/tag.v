@@ -1,5 +1,5 @@
 // simpletag cache 4 lines tag 6 bits 
-module tag ( clk, line,  din, wr, dout );
+module Mtag ( clk, line,  din, wr, dout );
 input clk;
 input [1:0] line;
 input [5:0] din;

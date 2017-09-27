@@ -1,6 +1,6 @@
 module fsm(
   input wire clk, reset, c, v, END, 
-  output reg Twr, Dwr, Rwr, Cnt);
+  output reg Twr, Dwr, Rwr, Cnt, Mux);
 
 reg [1:0] state, next_state;
 
@@ -39,7 +39,8 @@ always @(*) begin
   Cnt = (state == ReadTag); 
   Twr = (state == UpdateTag);
   Dwr = (state == ReadBlk);
-  Rwr = 0;
+  Rwr = 0; 
+  Mux = (state == ReadBlk);
 end
 
 endmodule
