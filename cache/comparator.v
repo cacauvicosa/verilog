@@ -3,11 +3,12 @@
   6 bits comparator
 */
 
-module counter(out, clk, tag, tag_in);
+module comparator(out, clk, tag, tag_in);
 
   output  out;
   input   clk;
-  input   [5:0] tag, [5:0] tag_in;
+  input   [5:0] tag;
+  input   [5:0] tag_in;
 
   reg   out;
  
@@ -21,5 +22,5 @@ module counter(out, clk, tag, tag_in);
     else 
        assign out = 0;
       
-endmodule // counter
+endmodule 
 

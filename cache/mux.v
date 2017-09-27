@@ -1,5 +1,5 @@
 
-module  mux_using_assign(
+module  mux(
 din_0      , // Mux first input
 din_1      , // Mux Second input
 sel        , // Select input
