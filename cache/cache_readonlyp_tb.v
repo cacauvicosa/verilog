@@ -10,8 +10,6 @@ gtkwave test.vcd &
 */
 module test;
 
-
-
   /* Make a reset that pulses once. */
   reg reset = 0;
   reg [10:0] address = 11'h0;
@@ -25,9 +23,6 @@ module test;
      # 10 reset = 0;
      # 20 address = 11'h5;
      # 20 address = 11'h21;
-     # 24 address = 11'h24;
-     # 6 address = 11'h27;
-     # 40 address = 11'h7;
      # 30 $finish;
   end
 

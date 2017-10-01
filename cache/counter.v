@@ -17,7 +17,7 @@ module counter(out, clk, reset, End);
     out <= out + 1;
 
   always @(posedge clk)
-    if ( out == 3'd7 )
+    if ( out == 3'd6 )
        assign End = 1;
     else 
        assign End = 0;
